@@ -6,6 +6,7 @@ import morgan from "morgan";
 import helmet from "helmet";
 import connectDB from "./config/connectDB.js";
 import userRouter from "./routes/user.routes.js";
+
 dotenv.config();
 const app = express();
 app.use(
