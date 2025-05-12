@@ -36,12 +36,19 @@ app.use("/api/file", uploadRouter);
 app.use("/api/subcategory", subCategoryRouter);
 app.use("/api/product", productRouter);
 app.use("/api/cart", cartRouter);
-app.use("/api/address",addressRouter)
-app.use('/api/order',orderRouter)
+app.use("/api/address", addressRouter);
+app.use("/api/order", orderRouter);
 // app.use("/", (req, res) => {
 //   res.send("Route and server running!!");
 // });
+
 const PORT = 8000 || process.env.PORT;
+app.get("/", (request, response) => {
+  ///server to client
+  response.json({
+    message: "Server is running " + PORT,
+  });
+});
 connectDB().then(() => {
   app.listen(PORT, () => {
     console.log(`Server running @ 3000`);
