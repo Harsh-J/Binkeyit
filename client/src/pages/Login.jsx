@@ -63,10 +63,10 @@ const Login = () => {
         navigate("/");
       }
     } catch (error) {
-      toast.error(error)
-      console.log("login catch error",error)
+      toast.error(error.message)
+      console.log("login catch error",error.message)
       setIsLoginLoading(false);
-      AxiosToastError(error);
+      AxiosToastError(error.message);
     }
   };
   return (
