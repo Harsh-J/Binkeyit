@@ -53,7 +53,9 @@ const Login = () => {
         toast.success(response.data.message);
         localStorage.setItem('accessToken',response.data.data.accesstoken)
         localStorage.setItem("refreshToken", response.data.data.refreshToken);
-        //dispatch(setUserDetails(userDetails.data));
+        const userDetails = await fetchUserDetails();
+        console.log("userDetailsInLoginPage ",userDetails.data)
+        dispatch(setUserDetails(userDetails.data));
 
         setData({
           email: "",
