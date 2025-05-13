@@ -43,7 +43,6 @@ const Login = () => {
         ...SummaryApi.login,
         data: data,
       });
-
       if (response.data.error) {
         setIsLoginLoading(false);
         toast.error(response.data.message);
@@ -52,9 +51,8 @@ const Login = () => {
       if (response.data.success) {
         setIsLoginLoading(false);
         toast.success(response.data.message);
-        localStorage.setItem("accesstoken", response.data.data.accesstoken);
+        localStorage.setItem('accessToken',response.data.data.accesstoken)
         localStorage.setItem("refreshToken", response.data.data.refreshToken);
-
         const userDetails = await fetchUserDetails();
         dispatch(setUserDetails(userDetails.data));
 
