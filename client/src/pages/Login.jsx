@@ -63,6 +63,8 @@ const Login = () => {
         navigate("/");
       }
     } catch (error) {
+      toast.error(error)
+      console.log("login catch error",error)
       setIsLoginLoading(false);
       AxiosToastError(error);
     }
