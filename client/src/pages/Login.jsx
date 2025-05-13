@@ -51,31 +51,11 @@ const Login = () => {
       if (response.data.success) {
         setIsLoginLoading(false);
         toast.success(response.data.message);
-        localStorage.setItem("accessToken", response.data.data.accesstoken);
-        localStorage.setItem("refreshToken", response.data.data.refreshToken);
-
-        try {
-          console.log(
-            "Fetching user details with token:",
-            localStorage.getItem("accessToken")
-          );
-          const userDetails = await fetchUserDetails();
-          console.log("userDetails:", userDetails);
-
-          if (!userDetails || !userDetails.data) {
-            throw new Error("Invalid or missing user details response");
-          }
-
-          dispatch(setUserDetails(userDetails.data));
-        } catch (fetchError) {
-          console.error(
-            "fetchUserDetails error:",
-            fetchError.message,
-            fetchError
-          );
-          toast.error("Failed to fetch user details");
-          // Optionally proceed with navigation to avoid blocking the user
-        }
+        // localStorage.setItem('accessToken',response.data.data.accesstoken)
+        // localStorage.setItem("refreshToken", response.data.data.refreshToken);
+        const userDetails = await fetchUserDetails();
+        console.log("userDetailsInLoginPage ",userDetails.data)
+        dispatch(setUserDetails(userDetails.data));
 
         setData({
           email: "",
@@ -84,8 +64,8 @@ const Login = () => {
         navigate("/");
       }
     } catch (error) {
-      toast.error(error.message);
-      console.log("login catch error", error.message);
+      toast.error(error.message)
+      console.log("login catch error",error.message)
       setIsLoginLoading(false);
       AxiosToastError(error.message);
     }
