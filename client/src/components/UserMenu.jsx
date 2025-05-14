@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Divider from "./Divider";
 import Axios from "../utils/Axios";
 import SummaryApi from "../common/SummaryApi";
@@ -14,46 +14,40 @@ const UserMenu = ({ close }) => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = async () => {
     try {
-      const response = await Axios({
-        ...SummaryApi.logout,
-      });
-      console.log("logout", response);
+      const response = await Axios({ ...SummaryApi.logout });
       if (response.data.success) {
-        if (close) {
-          close();
-        }
+        close?.();
         dispatch(logout());
         localStorage.clear();
         toast.success(response.data.message);
         navigate("/");
       }
     } catch (error) {
-      console.log(error);
       AxiosToastError(error);
     }
   };
 
-  const handleClose = () => {
-    if (close) {
-      close();
-    }
-  };
+  const handleClose = () => close?.();
+
+  const isActive = (path) => location.pathname.includes(path);
+
   return (
-    <div className="max-w-[95%] p-2 ">
+    <div className="max-w-[95%] p-2">
       <div className="font-semibold">My Account</div>
       <div className="text-sm flex items-center gap-2">
         <span className="max-w-52 text-ellipsis line-clamp-1">
-          {user.name || user.mobile}{" "}
-          <span className="text-medium text-red-600">
-            {user.role === "ADMIN" ? "(Admin)" : ""}
-          </span>
+          {user.name || user.mobile}
+          {user.role === "ADMIN" && (
+            <span className="text-medium text-red-600"> (Admin)</span>
+          )}
         </span>
         <Link
           onClick={handleClose}
-          to={"/dashboard/profile"}
+          to="/dashboard/profile"
           className="hover:text-primary-200"
         >
           <HiOutlineExternalLink size={15} />
@@ -66,8 +60,12 @@ const UserMenu = ({ close }) => {
         {isAdmin(user.role) && (
           <Link
             onClick={handleClose}
-            to={"/dashboard/category"}
-            className="px-2 hover:bg-orange-200 py-1 rounded-sm"
+            to="/dashboard/category"
+            className={`px-3 py-2 rounded-md text-left transition ${
+              isActive("/dashboard/category")
+                ? "bg-green-100 font-medium"
+                : "bg-gray-100 hover:bg-gray-200"
+            }`}
           >
             Category
           </Link>
@@ -76,8 +74,12 @@ const UserMenu = ({ close }) => {
         {isAdmin(user.role) && (
           <Link
             onClick={handleClose}
-            to={"/dashboard/subcategory"}
-            className="px-2 hover:bg-orange-200 py-1 rounded-sm"
+            to="/dashboard/subcategory"
+            className={`px-3 py-2 rounded-md text-left transition ${
+              isActive("/dashboard/subcategory")
+                ? "bg-green-100 font-medium"
+                : "bg-gray-100 hover:bg-gray-200"
+            }`}
           >
             Sub Category
           </Link>
@@ -86,8 +88,12 @@ const UserMenu = ({ close }) => {
         {isAdmin(user.role) && (
           <Link
             onClick={handleClose}
-            to={"/dashboard/upload-product"}
-            className="px-2 hover:bg-orange-200 py-1 rounded-sm"
+            to="/dashboard/upload-product"
+            className={`px-3 py-2 rounded-md text-left transition ${
+              isActive("/dashboard/upload-product")
+                ? "bg-green-100 font-medium"
+                : "bg-gray-100 hover:bg-gray-200"
+            }`}
           >
             Upload Product
           </Link>
@@ -96,8 +102,12 @@ const UserMenu = ({ close }) => {
         {isAdmin(user.role) && (
           <Link
             onClick={handleClose}
-            to={"/dashboard/product"}
-            className="px-2 hover:bg-orange-200 py-1 rounded-sm"
+            to="/dashboard/product"
+            className={`px-3 py-2 rounded-md text-left transition ${
+              isActive("/dashboard/product")
+                ? "bg-green-100 font-medium"
+                : "bg-gray-100 hover:bg-gray-200"
+            }`}
           >
             Product
           </Link>
@@ -105,23 +115,31 @@ const UserMenu = ({ close }) => {
 
         <Link
           onClick={handleClose}
-          to={"/dashboard/myorders"}
-          className="px-2 hover:bg-orange-200 py-1 rounded-sm"
+          to="/dashboard/myorders"
+          className={`px-3 py-2 rounded-md text-left transition ${
+            isActive("/dashboard/myorders")
+              ? "bg-green-100 font-medium"
+              : "bg-gray-100 hover:bg-gray-200"
+          }`}
         >
           My Orders
         </Link>
 
         <Link
           onClick={handleClose}
-          to={"/dashboard/address"}
-          className="px-2 hover:bg-orange-200 py-1 rounded-sm"
+          to="/dashboard/address"
+          className={`px-3 py-2 rounded-md text-left transition ${
+            isActive("/dashboard/address")
+              ? "bg-green-100 font-medium"
+              : "bg-gray-100 hover:bg-gray-200"
+          }`}
         >
           Save Address
         </Link>
 
         <button
           onClick={handleLogout}
-          className="text-left px-2 hover:bg-orange-200 py-1 rounded-sm"
+          className="w-full px-3 py-2 bg-red-100 text-left rounded-md hover:bg-red-200 transition"
         >
           Log Out
         </button>

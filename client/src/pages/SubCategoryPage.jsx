@@ -6,18 +6,14 @@ import SummaryApi from "../common/SummaryApi";
 import DisplayTable from "../components/DisplayTable";
 import { createColumnHelper } from "@tanstack/react-table";
 import ViewImage from "../components/ViewImage";
-import { LuPencil } from "react-icons/lu";
-import { MdDelete } from "react-icons/md";
 import { HiPencil } from "react-icons/hi";
+import { MdDelete } from "react-icons/md";
 import EditSubCategory from "../components/EditSubCategory";
 import CofirmBox from "../components/CofirmBox";
 import toast from "react-hot-toast";
-import {
-  setAllCategory,
-  setAllSubCategory,
-  setLoadingCategory,
-} from "../store/productSlice.js";
+import { setAllCategory, setAllSubCategory } from "../store/productSlice.js";
 import { useDispatch } from "react-redux";
+
 const SubCategoryPage = () => {
   const [openAddSubCategory, setOpenAddSubCategory] = useState(false);
   const [data, setData] = useState([]);
@@ -25,14 +21,11 @@ const SubCategoryPage = () => {
   const columnHelper = createColumnHelper();
   const [ImageURL, setImageURL] = useState("");
   const [openEdit, setOpenEdit] = useState(false);
-  const [editData, setEditData] = useState({
-    _id: "",
-  });
-  const [deleteSubCategory, setDeleteSubCategory] = useState({
-    _id: "",
-  });
+  const [editData, setEditData] = useState({ _id: "" });
+  const [deleteSubCategory, setDeleteSubCategory] = useState({ _id: "" });
   const [openDeleteConfirmBox, setOpenDeleteConfirmBox] = useState(false);
   const dispatch = useDispatch();
+
   const fetchSubCategory = async () => {
     try {
       setLoading(true);
@@ -40,10 +33,8 @@ const SubCategoryPage = () => {
         ...SummaryApi.getSubCategory,
       });
       const { data: responseData } = response;
-      console.log("Sub category", responseData);
       if (responseData.success) {
         setData(responseData.data);
-
         dispatch(
           setAllSubCategory(
             responseData.data.sort((a, b) => a.name.localeCompare(b.name))
@@ -68,7 +59,6 @@ const SubCategoryPage = () => {
     columnHelper.accessor("image", {
       header: "Image",
       cell: ({ row }) => {
-        console.log("row");
         return (
           <div className="flex justify-center items-center">
             <img
@@ -150,16 +140,19 @@ const SubCategoryPage = () => {
       AxiosToastError(error);
     }
   };
+
   return (
     <section className="">
-      <div className="p-2   bg-white shadow-md flex items-center justify-between">
-        <h2 className="font-semibold">Sub Category</h2>
-        <button
-          onClick={() => setOpenAddSubCategory(true)}
-          className="text-sm border border-primary-200 hover:bg-primary-200 px-3 py-1 rounded"
-        >
-          Add Sub Category
-        </button>
+      <div className="my-6 px-4 sm:px-6 lg:px-8">
+        <div className="bg-white shadow-md rounded-lg px-6 py-5 flex justify-between items-center">
+          <h2 className="text-2xl font-semibold text-gray-800">Sub Category</h2>
+          <button
+            onClick={()=>setOpenAddSubCategory(true)}
+            className="bg-yellow-400 text-yellow-900 font-medium px-5 py-2 rounded-full text-sm shadow hover:bg-yellow-500 hover:shadow-lg transition duration-200"
+          >
+            + Add Sub Category
+          </button>
+        </div>
       </div>
 
       <div className="overflow-auto w-full max-w-[95vw]">

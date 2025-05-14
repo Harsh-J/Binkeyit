@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { FaRegEyeSlash } from "react-icons/fa6";
-import { FaRegEye } from "react-icons/fa6";
 import toast from "react-hot-toast";
 import Axios from "../utils/Axios";
 import SummaryApi from "../common/SummaryApi";
@@ -17,13 +15,10 @@ const ForgotPassword = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    setData((preve) => {
-      return {
-        ...preve,
-        [name]: value,
-      };
-    });
+    setData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const valideValue = Object.values(data).every((el) => el);
@@ -60,38 +55,50 @@ const ForgotPassword = () => {
   };
 
   return (
-    <section className="w-full container mx-auto px-2">
-      <div className="bg-white my-4 w-full max-w-lg mx-auto rounded p-7">
-        <p className="font-semibold text-lg">Forgot Password </p>
-        <form className="grid gap-4 py-4" onSubmit={handleSubmit}>
-          <div className="grid gap-1">
-            <label htmlFor="email">Email :</label>
+    <section className="w-full min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-4">
+      <div className="bg-white shadow-lg w-full max-w-md rounded-lg p-8">
+        <p className="font-semibold text-2xl text-center text-green-800 mb-4">
+          Forgot Password
+        </p>
+        <p className="text-center text-gray-600 mb-6">
+          Please enter your email to receive a password reset link
+        </p>
+
+        <form className="grid gap-6" onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="email" className="text-sm font-medium text-gray-700">
+              Email Address
+            </label>
             <input
               type="email"
               id="email"
-              className="bg-blue-50 p-2 border rounded outline-none focus:border-primary-200"
               name="email"
+              className="w-full mt-1 p-3 bg-blue-50 border border-gray-300 rounded-md outline-none focus:ring-2 focus:ring-green-400"
               value={data.email}
               onChange={handleChange}
               placeholder="Enter your email"
+              required
             />
           </div>
 
           <button
-            disabled={!valideValue}
-            className={` ${
-              valideValue ? "bg-green-800 hover:bg-green-700" : "bg-gray-500"
-            }    text-white py-2 rounded font-semibold my-3 tracking-wide`}
+            type="submit"
+            disabled={!valideValue || emailSentLoading}
+            className={`w-full py-3 mt-2 rounded font-semibold text-white tracking-wide transition-all duration-200 ${
+              valideValue
+                ? "bg-green-700 hover:bg-green-800"
+                : "bg-gray-400 cursor-not-allowed"
+            }`}
           >
-            {emailSentLoading ? <Loading /> : "Send Otp"}
+            {emailSentLoading ? <Loading /> : "Send OTP"}
           </button>
         </form>
 
-        <p>
-          Already have account?{" "}
+        <p className="text-center mt-6 text-gray-600">
+          Already have an account?{" "}
           <Link
-            to={"/login"}
-            className="font-semibold text-green-700 hover:text-green-800"
+            to="/login"
+            className="text-green-700 font-semibold hover:underline"
           >
             Login
           </Link>

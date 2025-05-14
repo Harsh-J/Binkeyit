@@ -1,6 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { FaRegEyeSlash } from "react-icons/fa6";
-import { FaRegEye } from "react-icons/fa6";
 import toast from "react-hot-toast";
 import Axios from "../utils/Axios";
 import SummaryApi from "../common/SummaryApi";
@@ -15,13 +13,11 @@ const OtpVerification = () => {
   const inputRef = useRef([]);
   const location = useLocation();
 
-  console.log("location", location);
-
   useEffect(() => {
     if (!location?.state?.email) {
       navigate("/forgot-password");
     }
-  }, []);
+  }, [location?.state?.email, navigate]);
 
   const valideValue = data.every((el) => el);
 
@@ -56,19 +52,26 @@ const OtpVerification = () => {
       }
     } catch (error) {
       setOtpVerificationLoading(false);
-      console.log("error", error);
       AxiosToastError(error);
     }
   };
 
   return (
-    <section className="w-full container mx-auto px-2">
-      <div className="bg-white my-4 w-full max-w-lg mx-auto rounded p-7">
-        <p className="font-semibold text-lg">Enter OTP</p>
-        <form className="grid gap-4 py-4" onSubmit={handleSubmit}>
-          <div className="grid gap-1">
-            <label htmlFor="otp">Enter Your OTP :</label>
-            <div className="flex items-center gap-2 justify-between mt-3">
+    <section className="w-full min-h-screen flex items-center justify-center bg-gradient-to-tr from-blue-100 to-green-100 px-4">
+      <div className="bg-white shadow-lg w-full max-w-md rounded-lg p-8">
+        <p className="font-semibold text-2xl text-center text-green-800 mb-4">
+          Enter OTP
+        </p>
+        <p className="text-center text-gray-600 mb-6">
+          Please enter the OTP sent to your email address
+        </p>
+
+        <form className="grid gap-6" onSubmit={handleSubmit}>
+          <div className="grid gap-2">
+            <label htmlFor="otp" className="text-sm font-medium text-gray-700">
+              Enter Your OTP
+            </label>
+            <div className="flex gap-3 justify-between mt-3">
               {data.map((element, index) => {
                 return (
                   <input
@@ -82,8 +85,6 @@ const OtpVerification = () => {
                     value={data[index]}
                     onChange={(e) => {
                       const value = e.target.value;
-                      console.log("value", value);
-
                       const newData = [...data];
                       newData[index] = value;
                       setData(newData);
@@ -93,7 +94,7 @@ const OtpVerification = () => {
                       }
                     }}
                     maxLength={1}
-                    className="bg-blue-50 w-full max-w-16 p-2 border rounded outline-none focus:border-primary-200 text-center font-semibold"
+                    className="bg-blue-50 w-full max-w-16 p-3 border border-gray-300 rounded-md outline-none text-center font-semibold focus:ring-2 focus:ring-green-400"
                   />
                 );
               })}
@@ -101,20 +102,22 @@ const OtpVerification = () => {
           </div>
 
           <button
-            disabled={!valideValue}
-            className={` ${
-              valideValue ? "bg-green-800 hover:bg-green-700" : "bg-gray-500"
-            }    text-white py-2 rounded font-semibold my-3 tracking-wide`}
+            disabled={!valideValue || otpVerificationLoading}
+            className={`w-full py-3 mt-4 rounded font-semibold text-white tracking-wide transition-all duration-200 ${
+              valideValue
+                ? "bg-green-700 hover:bg-green-800"
+                : "bg-gray-400 cursor-not-allowed"
+            }`}
           >
             {otpVerificationLoading ? <Loading /> : "Verify OTP"}
           </button>
         </form>
 
-        <p>
-          Already have account?{" "}
+        <p className="text-center mt-6 text-gray-600">
+          Already have an account?{" "}
           <Link
-            to={"/login"}
-            className="font-semibold text-green-700 hover:text-green-800"
+            to="/login"
+            className="text-green-700 font-semibold hover:underline"
           >
             Login
           </Link>

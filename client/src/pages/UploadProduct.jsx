@@ -142,8 +142,11 @@ const UploadProduct = () => {
   // }, []);
   return (
     <section className="">
-      <div className="p-2   bg-white shadow-md flex items-center justify-between">
-        <h2 className="font-semibold">Upload Product</h2>
+      <div className="my-6 px-4 sm:px-6 lg:px-8">
+        <div className="bg-white shadow-md rounded-lg px-6 py-5 flex justify-between items-center">
+          <h2 className="text-2xl font-semibold text-gray-800">Upload Product</h2>
+          
+        </div>
       </div>
       <div className="grid p-3">
         <form className="grid gap-4" onSubmit={handleSubmit}>
