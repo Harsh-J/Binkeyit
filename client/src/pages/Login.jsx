@@ -42,6 +42,7 @@ const Login = () => {
       const response = await Axios({
         ...SummaryApi.login,
         data: data,
+        validateStatus: (status) => status >= 200 && status < 500,
       });
       if (response.data.error) {
         setIsLoginLoading(false);
@@ -53,10 +54,7 @@ const Login = () => {
         toast.success(response.data.message);
         localStorage.setItem("accesstoken", response.data.data.accesstoken);
         localStorage.setItem("refreshToken", response.data.data.refreshToken);
-        console.log("accesstoken",localStorage.getItem('accesstoken'))
-        console.log("refreshtoken",localStorage.getItem('refreshToken'))
         const userDetails = await fetchUserDetails();
-        console.log(userDetails)
         dispatch(setUserDetails(userDetails.data));
 
         setData({
