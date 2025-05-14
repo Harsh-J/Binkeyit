@@ -10,7 +10,7 @@ const Axios = axios.create({
 Axios.interceptors.request.use(
     async(config)=>{
         const accessToken = localStorage.getItem('accesstoken')
-
+        console.log("Axios file",accessToken)
         if(accessToken){
             config.headers.Authorization = `Bearer ${accessToken}`
         }

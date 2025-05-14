@@ -51,35 +51,13 @@ const Login = () => {
       if (response.data.success) {
         setIsLoginLoading(false);
         toast.success(response.data.message);
-        localStorage.setItem("accessToken", response.data.data.accesstoken);
+        localStorage.setItem("accesstoken", response.data.data.accesstoken);
         localStorage.setItem("refreshToken", response.data.data.refreshToken);
-        //const userDetails = await fetchUserDetails();
-        const userDetails = {
-          _id: "680f19b0f59a432c0ca3ba60",
-          name: "HarshJ",
-          email: "harshjagarwal123@gmail.com",
-          avatar:
-            "http://res.cloudinary.com/dfm31di5k/image/upload/v1746960844/binkeyit/xi8nf9zswwfnde5mh1qb.jpg",
-          mobile: 9166031522,
-          verify_email: false,
-          last_login_date: "2025-05-13T18:27:38.568Z",
-          status: "Active",
-          address_details: ["68208078ae892df12b2f2251"],
-          shopping_cart: [
-            "681cb923e2e24e5c3c8648a5",
-            "681cb83ae2e24e5c3c864881",
-            "681cb923e2e24e5c3c8648a5",
-          ],
-          orderHistory: [],
-          forgot_password_otp: "605873",
-          forgot_password_expiry: "2025-05-12T18:59:15.000Z",
-          role: "ADMIN",
-          createdAt: "2025-04-28T06:01:20.320Z",
-          updatedAt: "2025-05-13T18:27:38.568Z",
-          __v: 0,
-        };
-        console.log("userDetailsInLoginPage ", userDetails);
-        dispatch(setUserDetails(userDetails));
+        console.log("accesstoken",localStorage.getItem('accesstoken'))
+        console.log("refreshtoken",localStorage.getItem('refreshToken'))
+        const userDetails = await fetchUserDetails();
+        console.log(userDetails)
+        dispatch(setUserDetails(userDetails.data));
 
         setData({
           email: "",

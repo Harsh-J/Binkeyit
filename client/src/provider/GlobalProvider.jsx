@@ -133,7 +133,7 @@ const GlobalProvider = ({children}) => {
 
     useEffect(()=>{
       fetchCartItem()
-      handleLogoutOut()
+      //handleLogoutOut()
       fetchAddress()
       fetchOrder()
     },[user])
