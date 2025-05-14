@@ -11,6 +11,7 @@ import UserMenu from "./UserMenu";
 import { DisplayPriceInRupees } from "../utils/DisplayPriceInRupees";
 import { useGlobalContext } from "../provider/GlobalProvider";
 import DisplayCartItem from "./DisplayCartItem";
+import { FaArrowDown, FaArrowRight } from "react-icons/fa";
 
 const Header = () => {
   const [isMobile] = useMobile();
@@ -93,7 +94,10 @@ const Header = () => {
               onClick={handleMobileUser}
             >
               {user._id ? (
-                <FaRegCircleUser size={24} className="mr-1" />
+                <span className="border border-green-600 text-green-600 font-medium px-3 py-1 rounded-md hover:bg-green-50 transition-colors text-sm flex items-center gap-2">
+                  Account
+                  <FaArrowRight size={14} />
+                </span>
               ) : (
                 <span className="border border-green-600 text-green-600 font-medium px-3 py-1 rounded-md hover:bg-green-50 transition-colors text-sm">
                   Login
@@ -109,12 +113,15 @@ const Header = () => {
                     onClick={() => setOpenUserMenu((preve) => !preve)}
                     className="flex select-none items-center gap-1 cursor-pointer"
                   >
-                    <p>Account</p>
-                    {openUserMenu ? (
+                    <span className="border border-green-600 text-green-600 font-medium text-md px-3 py-[9px]  rounded-md hover:bg-green-50 transition-colors flex items-center gap-2">
+                      Account
+                      <FaArrowDown size={14} />
+                    </span>
+                    {/* {openUserMenu ? (
                       <GoTriangleUp size={25} />
                     ) : (
                       <GoTriangleDown size={25} />
-                    )}
+                    )} */}
                   </div>
                   {openUserMenu && (
                     <div className="absolute right-0 top-12">
@@ -125,7 +132,7 @@ const Header = () => {
                   )}
                 </div>
               ) : (
-                <button onClick={redirectToLoginPage} className="text-lg px-2">
+                <button onClick={redirectToLoginPage} className="border border-green-600 text-green-600 font-medium text-md px-4 py-[9px]  rounded-md hover:bg-green-50 transition-colors flex items-center gap-2">
                   Login
                 </button>
               )}
