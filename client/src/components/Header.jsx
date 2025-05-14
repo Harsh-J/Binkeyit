@@ -21,8 +21,6 @@ const Header = () => {
   const user = useSelector((state) => state?.user);
   const [openUserMenu, setOpenUserMenu] = useState(false);
   const cartItem = useSelector((state) => state.cartItem.cart);
-  // const [totalPrice,setTotalPrice] = useState(0)
-  // const [totalQty,setTotalQty] = useState(0)
   const { totalPrice, totalQty } = useGlobalContext();
   const [openCartSection, setOpenCartSection] = useState(false);
 
@@ -39,29 +37,14 @@ const Header = () => {
       navigate("/login");
       return;
     }
-
     navigate("/user");
   };
-
-  //total item and total price
-  // useEffect(()=>{
-  //     const qty = cartItem.reduce((preve,curr)=>{
-  //         return preve + curr.quantity
-  //     },0)
-  //     setTotalQty(qty)
-
-  //     const tPrice = cartItem.reduce((preve,curr)=>{
-  //         return preve + (curr.productId.price * curr.quantity)
-  //     },0)
-  //     setTotalPrice(tPrice)
-
-  // },[cartItem])
 
   return (
     <header className="h-24 lg:h-20 lg:shadow-md sticky top-0 z-40 flex flex-col justify-center gap-1 bg-white">
       {!(isSearchPage && isMobile) && (
         <div className="container mx-auto flex items-center px-2 justify-between">
-          {/**logo */}
+          {/* Logo */}
           <div className="h-full">
             <Link to={"/"} className="h-full flex justify-center items-center">
               <img
@@ -81,66 +64,63 @@ const Header = () => {
             </Link>
           </div>
 
-          {/**Search */}
+          {/* Search */}
           <div className="hidden lg:block">
             <Search />
           </div>
 
-          {/**login and my cart */}
+          {/* Login and Cart */}
           <div className="">
-            {/**user icons display in only mobile version**/}
+            {/* User button (mobile) */}
             <button
               className="text-neutral-600 lg:hidden"
               onClick={handleMobileUser}
             >
               {user._id ? (
-                <span className="border border-green-600 text-green-600 font-medium px-3 py-1 rounded-md hover:bg-green-50 transition-colors text-sm flex items-center gap-2">
+                <span className="border border-green-600 text-green-600 font-medium px-3 py-2 rounded-md hover:bg-green-50 transition-colors text-sm flex items-center gap-2">
                   Account
                   <FaArrowRight size={14} />
                 </span>
               ) : (
-                <span className="border border-green-600 text-green-600 font-medium px-3 py-1 rounded-md hover:bg-green-50 transition-colors text-sm">
+                <span className="border border-green-600 text-green-600 font-medium px-3 py-2 rounded-md hover:bg-green-50 transition-colors text-sm">
                   Login
                 </span>
               )}
             </button>
 
-            {/**Desktop**/}
-            <div className="hidden lg:flex  items-center gap-10">
+            {/* Desktop */}
+            <div className="hidden lg:flex items-center gap-4">
               {user?._id ? (
                 <div className="relative">
                   <div
                     onClick={() => setOpenUserMenu((preve) => !preve)}
                     className="flex select-none items-center gap-1 cursor-pointer"
                   >
-                    <span className="border border-green-600 text-green-600 font-medium text-md px-3 py-[9px]  rounded-md hover:bg-green-50 transition-colors flex items-center gap-2">
+                    <span className="border border-green-600 text-green-600 font-medium text-md px-3 py-3 rounded-md hover:bg-green-50 transition-colors flex items-center gap-2">
                       Account
                       <FaArrowDown size={14} />
                     </span>
-                    {/* {openUserMenu ? (
-                      <GoTriangleUp size={25} />
-                    ) : (
-                      <GoTriangleDown size={25} />
-                    )} */}
                   </div>
                   {openUserMenu && (
                     <div className="absolute right-0 top-12">
-                      <div className="bg-white rounded p-4 min-w-52 lg:shadow-lg">
+                      <div className="bg-white rounded p-4 min-w-52 lg:shadow-lg transition-all duration-300 ease-in-out transform opacity-100 scale-100">
                         <UserMenu close={handleCloseUserMenu} />
                       </div>
                     </div>
                   )}
                 </div>
               ) : (
-                <button onClick={redirectToLoginPage} className="border border-green-600 text-green-600 font-medium text-md px-4 py-[9px]  rounded-md hover:bg-green-50 transition-colors flex items-center gap-2">
+                <button
+                  onClick={redirectToLoginPage}
+                  className="border border-green-600 text-green-600 font-medium text-md px-3 py-2 rounded-md hover:bg-green-50 transition-colors flex items-center gap-2"
+                >
                   Login
                 </button>
               )}
               <button
                 onClick={() => setOpenCartSection(true)}
-                className="flex items-center gap-2 bg-green-800 hover:bg-green-700 px-3 py-2 rounded text-white"
+                className="flex items-center mr-3 gap-2 bg-green-600 border border-gray-200 px-3 py-2 rounded-lg text-white shadow-lg hover:bg-green-700 transition-all"
               >
-                {/**add to card icons */}
                 <div className="animate-bounce">
                   <BsCart4 size={26} />
                 </div>
