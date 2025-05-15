@@ -144,16 +144,17 @@ const SubCategoryPage = () => {
   return (
     <section className="">
       <div className="my-6 px-4 sm:px-6 lg:px-8">
-        <div className="sm:bg-white  lg:bg-white shadow-md rounded-lg px-1 py-5 flex justify-between items-center">
-          <h2 className="text-2xl font-semibold text-gray-800">Sub Category</h2>
-          <button
-            onClick={()=>setOpenAddSubCategory(true)}
-            className="bg-yellow-400 text-yellow-900 font-medium px-5 py-2 rounded-full text-sm shadow hover:bg-yellow-500 hover:shadow-lg transition duration-200"
-          >
-            + Add Sub Category
-          </button>
-        </div>
-      </div>
+  <div className="bg-white shadow-md rounded-lg px-6 py-5 flex justify-between items-center gap-4">
+    <h2 className="text-2xl font-semibold text-gray-800">Sub Category</h2>
+    <button
+      onClick={() => setOpenAddSubCategory(true)}
+      className="bg-yellow-400 text-yellow-900 font-medium px-5 py-2 rounded-full text-sm shadow hover:bg-yellow-500 hover:shadow-lg transition duration-200"
+    >
+      + Add Sub Category
+    </button>
+  </div>
+</div>
+
 
       <div className="overflow-auto w-full max-w-[95vw]">
         <DisplayTable data={data} column={column} />
