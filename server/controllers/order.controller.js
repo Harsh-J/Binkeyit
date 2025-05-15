@@ -192,9 +192,7 @@ export async function webhookStripe(request, response) {
         session.id
       );
       const userId = session.metadata.userId;
-      if (session.payment_status === "paid") {
-        session.payment_status = "ONLINE_PAYMENT";
-      }
+      
       const orderProduct = await getOrderProductItems({
         lineItems: lineItems,
         userId: userId,
