@@ -62,11 +62,11 @@ export const pricewithDiscount = (price, dis = 1) => {
 export async function paymentController(request, response) {
   try {
     const userId = request.userId; // auth middleware
-
+   
     const { list_items, totalAmt, addressId, subTotalAmt } = request.body;
 
     const user = await UserModel.findById(userId);
-    console.log(user);
+    console.log(user)
     const line_items = list_items.map((item) => {
       return {
         price_data: {
@@ -178,21 +178,20 @@ const getOrderProductItems = async ({
 
 //http://localhost:8080/api/order/webhook
 export async function webhookStripe(request, response) {
-  console.log("inside webhhok ");
+  console.log("inside webhhok ")
   const event = request.body;
   const endPointSecret = process.env.STRIPE_ENPOINT_WEBHOOK_SECRET_KEY;
 
   console.log("event", event);
-  c;
+
   // Handle the event
   switch (event.type) {
     case "checkout.session.completed":
-      let session = event.data.object;
+      const session = event.data.object;
       const lineItems = await Stripe.checkout.sessions.listLineItems(
         session.id
       );
       const userId = session.metadata.userId;
-      
       const orderProduct = await getOrderProductItems({
         lineItems: lineItems,
         userId: userId,
