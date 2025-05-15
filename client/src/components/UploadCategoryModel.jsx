@@ -56,7 +56,9 @@ const UploadCategoryModel = ({ close, fetchData }) => {
       <div className="bg-white w-full max-w-md rounded-xl shadow-lg p-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold text-gray-800">Add New Category</h2>
+          <h2 className="text-xl font-semibold text-gray-800">
+            Add New Category
+          </h2>
           <button
             onClick={close}
             className="text-gray-500 hover:text-red-500 transition"
@@ -70,7 +72,10 @@ const UploadCategoryModel = ({ close, fetchData }) => {
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Category Name */}
           <div className="space-y-1">
-            <label htmlFor="categoryName" className="text-sm font-medium text-gray-700">
+            <label
+              htmlFor="categoryName"
+              className="text-sm font-medium text-gray-700"
+            >
               Category Name
             </label>
             <input
@@ -86,33 +91,41 @@ const UploadCategoryModel = ({ close, fetchData }) => {
 
           {/* Image Preview & Upload */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">Category Image</label>
+            <label className="text-sm font-medium text-gray-700">
+              Category Image
+            </label>
             <div className="w-full h-40 bg-gray-50 border border-gray-200 rounded-md flex items-center justify-center overflow-hidden">
               {data.image ? (
-                <img src={data.image} alt="Category" className="w-full h-full object-contain" />
+                <img
+                  src={data.image}
+                  alt="Category"
+                  className="w-full h-full object-contain"
+                />
               ) : (
                 <span className="text-gray-400 text-sm">No image uploaded</span>
               )}
             </div>
 
-            <label htmlFor="uploadCategoryImage" className="block w-fit">
-              <div
-                className={`mt-2 px-4 py-2 text-sm font-medium rounded-md border transition cursor-pointer ${
-                  !data.name
-                    ? "bg-gray-300 text-gray-600 cursor-not-allowed"
-                    : "bg-primary-100 text-primary-800 border-primary-200 hover:bg-primary-200"
-                }`}
-              >
-                {imageUploadLoading ? <Loading /> : "Upload Image"}
-              </div>
-              <input
-                disabled={!data.name}
-                onChange={handleUploadCategoryImage}
-                type="file"
-                id="uploadCategoryImage"
-                className="hidden"
-              />
-            </label>
+            <div className="flex justify-center w-full">
+              <label htmlFor="uploadCategoryImage" className="block w-fit">
+                <div
+                  className={`mt-2 px-4 py-2 text-sm font-medium rounded-md border transition cursor-pointer ${
+                    !data.name
+                      ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+                      : "bg-primary-100 text-primary-800 border-primary-200 hover:bg-primary-200"
+                  }`}
+                >
+                  {imageUploadLoading ? <Loading /> : "Upload Image"}
+                </div>
+                <input
+                  disabled={!data.name}
+                  onChange={handleUploadCategoryImage}
+                  type="file"
+                  id="uploadCategoryImage"
+                  className="hidden"
+                />
+              </label>
+            </div>
           </div>
 
           {/* Submit Button */}

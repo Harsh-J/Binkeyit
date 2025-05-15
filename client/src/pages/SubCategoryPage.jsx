@@ -150,9 +150,11 @@ const SubCategoryPage = () => {
           </h2>
           <button
             onClick={() => setOpenAddSubCategory(true)}
-            className="bg-yellow-400 text-yellow-900 font-medium px-4 sm:px-5 py-2 rounded-full text-sm shadow hover:bg-yellow-500 hover:shadow-lg transition duration-200 whitespace-nowrap"
+            className="bg-yellow-400 text-yellow-900 font-medium px-4 sm:px-5 py-2 rounded-full text-sm shadow hover:bg-yellow-500 hover:shadow-lg transition duration-200 whitespace-nowrap flex items-center gap-1"
           >
-            Add Sub Category
+            <span className="text-lg font-bold">+</span>
+            <span className="block sm:hidden">Add</span>
+            <span className="hidden sm:block">Add Sub Category</span>
           </button>
         </div>
       </div>

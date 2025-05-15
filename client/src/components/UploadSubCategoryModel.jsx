@@ -73,7 +73,9 @@ const UploadSubCategoryModel = ({ close, fetchData }) => {
       <div className="bg-white w-full max-w-sm rounded-xl shadow-lg p-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold text-gray-800">Add Sub Category</h2>
+          <h2 className="text-xl font-semibold text-gray-800">
+            Add Sub Category
+          </h2>
           <button
             onClick={close}
             className="text-gray-500 hover:text-red-500 transition"
@@ -87,7 +89,10 @@ const UploadSubCategoryModel = ({ close, fetchData }) => {
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Sub Category Name */}
           <div>
-            <label htmlFor="subCategoryName" className="text-sm font-medium text-gray-700">
+            <label
+              htmlFor="subCategoryName"
+              className="text-sm font-medium text-gray-700"
+            >
               Sub Category Name
             </label>
             <input
@@ -103,38 +108,51 @@ const UploadSubCategoryModel = ({ close, fetchData }) => {
 
           {/* Image Preview & Upload */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">Sub Category Image</label>
+            <label className="text-sm font-medium text-gray-700">
+              Sub Category Image
+            </label>
             <div className="w-full h-32 bg-gray-50 border border-gray-200 rounded-md flex items-center justify-center overflow-hidden">
               {subCategoryData.image ? (
-                <img src={subCategoryData.image} alt="SubCategory" className="w-full h-full object-contain" />
+                <img
+                  src={subCategoryData.image}
+                  alt="SubCategory"
+                  className="w-full h-full object-contain"
+                />
               ) : (
                 <span className="text-gray-400 text-sm">No image uploaded</span>
               )}
             </div>
 
-            <label htmlFor="uploadSubCategoryImage" className="block w-fit mt-2">
-              <div
-                className={`px-4 py-2 text-sm font-medium rounded-md border transition cursor-pointer ${
-                  !subCategoryData.name
-                    ? "bg-gray-300 text-gray-600 cursor-not-allowed"
-                    : "bg-primary-100 text-primary-800 border-primary-200 hover:bg-primary-200"
-                }`}
+            <div className="flex justify-center w-full">
+              <label
+                htmlFor="uploadSubCategoryImage"
+                className="block w-fit mt-2"
               >
-                {imageUploadLoading ? <Loading /> : "Upload Image"}
-              </div>
-              <input
-                disabled={!subCategoryData.name}
-                onChange={handleUploadSubCategoryImage}
-                type="file"
-                id="uploadSubCategoryImage"
-                className="hidden"
-              />
-            </label>
+                <div
+                  className={`px-4 py-2 text-sm font-medium rounded-md border transition cursor-pointer ${
+                    !subCategoryData.name
+                      ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+                      : "bg-primary-100 text-primary-800 border-primary-200 hover:bg-primary-200"
+                  }`}
+                >
+                  {imageUploadLoading ? <Loading /> : "Upload Image"}
+                </div>
+                <input
+                  disabled={!subCategoryData.name}
+                  onChange={handleUploadSubCategoryImage}
+                  type="file"
+                  id="uploadSubCategoryImage"
+                  className="hidden"
+                />
+              </label>
+            </div>
           </div>
 
           {/* Select Categories */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">Select Categories</label>
+            <label className="text-sm font-medium text-gray-700">
+              Select Categories
+            </label>
             <div className="space-y-1">
               {/* Display Selected Categories */}
               <div className="flex flex-wrap gap-2">
@@ -184,9 +202,15 @@ const UploadSubCategoryModel = ({ close, fetchData }) => {
           {/* Submit Button */}
           <button
             type="submit"
-            disabled={!subCategoryData.name || !subCategoryData.image || subCategoryData.category.length === 0}
+            disabled={
+              !subCategoryData.name ||
+              !subCategoryData.image ||
+              subCategoryData.category.length === 0
+            }
             className={`w-full py-2 rounded-md text-white font-semibold transition ${
-              subCategoryData.name && subCategoryData.image && subCategoryData.category.length > 0
+              subCategoryData.name &&
+              subCategoryData.image &&
+              subCategoryData.category.length > 0
                 ? "bg-primary-200 hover:bg-primary-100"
                 : "bg-gray-300 cursor-not-allowed"
             }`}
