@@ -5,6 +5,7 @@ import Axios from "../utils/Axios";
 import SummaryApi from "../common/SummaryApi";
 import AxiosToastError from "../utils/AxiosToastError";
 import { Link, useNavigate } from "react-router-dom";
+import Loading from "../components/Loading";
 
 const Register = () => {
   const [data, setData] = useState({
@@ -15,6 +16,7 @@ const Register = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isRegistererdLoading, setIsRegistererdLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -32,16 +34,21 @@ const Register = () => {
     }
 
     try {
+      setIsRegistererdLoading(true);
       const response = await Axios({
         ...SummaryApi.register,
         data: data,
       });
 
       if (response.data.error) {
+        setIsRegistererdLoading(false);
+
         toast.error(response.data.message);
       }
 
       if (response.data.success) {
+        setIsRegistererdLoading(false);
+
         toast.success(response.data.message);
         setData({
           name: "",
@@ -52,6 +59,8 @@ const Register = () => {
         navigate("/login");
       }
     } catch (error) {
+      setIsRegistererdLoading(false);
+
       AxiosToastError(error);
     }
   };
@@ -59,12 +68,18 @@ const Register = () => {
   return (
     <section className="w-full min-h-screen flex items-center justify-center bg-gradient-to-tr from-blue-100 to-green-100 px-4">
       <div className="bg-white shadow-lg w-full max-w-md rounded-lg p-8">
-        <h2 className="text-3xl font-bold text-center text-green-800">Create Account</h2>
-        <p className="text-center text-gray-600 mt-2 mb-6">Join Binkeyit today — it’s fast and easy!</p>
+        <h2 className="text-3xl font-bold text-center text-green-800">
+          Create Account
+        </h2>
+        <p className="text-center text-gray-600 mt-2 mb-6">
+          Join Binkeyit today — it’s fast and easy!
+        </p>
 
         <form onSubmit={handleSubmit} className="grid gap-5">
           <div>
-            <label htmlFor="name" className="text-sm font-medium text-gray-700">Name</label>
+            <label htmlFor="name" className="text-sm font-medium text-gray-700">
+              Name
+            </label>
             <input
               type="text"
               id="name"
@@ -79,7 +94,12 @@ const Register = () => {
           </div>
 
           <div>
-            <label htmlFor="email" className="text-sm font-medium text-gray-700">Email Address</label>
+            <label
+              htmlFor="email"
+              className="text-sm font-medium text-gray-700"
+            >
+              Email Address
+            </label>
             <input
               type="email"
               id="email"
@@ -93,7 +113,12 @@ const Register = () => {
           </div>
 
           <div>
-            <label htmlFor="password" className="text-sm font-medium text-gray-700">Password</label>
+            <label
+              htmlFor="password"
+              className="text-sm font-medium text-gray-700"
+            >
+              Password
+            </label>
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
@@ -109,13 +134,22 @@ const Register = () => {
                 className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-600 cursor-pointer"
                 onClick={() => setShowPassword((prev) => !prev)}
               >
-                {showPassword ? <FaRegEye size={18} /> : <FaRegEyeSlash size={18} />}
+                {showPassword ? (
+                  <FaRegEye size={18} />
+                ) : (
+                  <FaRegEyeSlash size={18} />
+                )}
               </div>
             </div>
           </div>
 
           <div>
-            <label htmlFor="confirmPassword" className="text-sm font-medium text-gray-700">Confirm Password</label>
+            <label
+              htmlFor="confirmPassword"
+              className="text-sm font-medium text-gray-700"
+            >
+              Confirm Password
+            </label>
             <div className="relative">
               <input
                 type={showConfirmPassword ? "text" : "password"}
@@ -131,7 +165,11 @@ const Register = () => {
                 className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-600 cursor-pointer"
                 onClick={() => setShowConfirmPassword((prev) => !prev)}
               >
-                {showConfirmPassword ? <FaRegEye size={18} /> : <FaRegEyeSlash size={18} />}
+                {showConfirmPassword ? (
+                  <FaRegEye size={18} />
+                ) : (
+                  <FaRegEyeSlash size={18} />
+                )}
               </div>
             </div>
           </div>
@@ -140,16 +178,21 @@ const Register = () => {
             type="submit"
             disabled={!valideValue}
             className={`w-full py-3 mt-2 rounded font-semibold tracking-wide text-white transition-all duration-200 ${
-              valideValue ? "bg-green-700 hover:bg-green-800" : "bg-gray-400 cursor-not-allowed"
+              valideValue
+                ? "bg-green-700 hover:bg-green-800"
+                : "bg-gray-400 cursor-not-allowed"
             }`}
           >
-            Register
+            {isRegistererdLoading ? <Loading /> : "Register"}
           </button>
         </form>
 
         <p className="text-center mt-6 text-gray-600">
           Already have an account?{" "}
-          <Link to="/login" className="text-green-700 font-semibold hover:underline">
+          <Link
+            to="/login"
+            className="text-green-700 font-semibold hover:underline"
+          >
             Login
           </Link>
         </p>

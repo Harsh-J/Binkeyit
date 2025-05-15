@@ -7,7 +7,7 @@ import SummaryApi from "../common/SummaryApi";
 import { logout } from "../store/userSlice";
 import toast from "react-hot-toast";
 import AxiosToastError from "../utils/AxiosToastError";
-import { HiOutlineExternalLink } from "react-icons/hi";
+import { HiOutlineChevronRight } from "react-icons/hi";
 import isAdmin from "../utils/isAdmin";
 
 const UserMenu = ({ close }) => {
@@ -38,24 +38,28 @@ const UserMenu = ({ close }) => {
   return (
     <div className="max-w-[95%] p-2">
       <div className="font-semibold">My Account</div>
-      <div className="text-sm flex items-center gap-2">
-        <span className="max-w-52 text-ellipsis line-clamp-1">
-          {user.name || user.mobile}
-          {user.role === "ADMIN" && (
-            <span className="text-medium text-red-600"> (Admin)</span>
-          )}
-        </span>
-        <Link
-          onClick={handleClose}
-          to="/dashboard/profile"
-          className="hover:text-primary-200"
-        >
-          <HiOutlineExternalLink size={15} />
-        </Link>
-      </div>
+
+      {/* User profile row (clickable) */}
+      <Link onClick={handleClose} to="/dashboard/profile">
+        <div className="flex items-center gap-2 p-2 rounded-md bg-gradient-to-r from-green-100 via-green-50 to-white border border-green-200 shadow-sm group transition-all duration-300 ease-in-out hover:shadow-md">
+          <span className="max-w-[160px] text-green-800 text-sm font-medium truncate group-hover:text-green-900 transition-all duration-200">
+            {user.name || user.mobile}
+            {user.role === "ADMIN" && (
+              <span className="ml-1 text-green-600 font-bold animate-pulse">
+                (Admin)
+              </span>
+            )}
+          </span>
+          <HiOutlineChevronRight
+            size={16}
+            className="text-green-600 group-hover:translate-x-1 transition-transform duration-200"
+          />
+        </div>
+      </Link>
 
       <Divider />
 
+      {/* Menu Links */}
       <div className="text-sm grid gap-1">
         {isAdmin(user.role) && (
           <Link
@@ -64,7 +68,7 @@ const UserMenu = ({ close }) => {
             className={`px-3 py-2 rounded-md text-left transition ${
               isActive("/dashboard/category")
                 ? "bg-green-100 font-medium"
-                : "bg-gray-100 hover:bg-gray-200"
+                : "bg-gray-50 hover:bg-gray-100"
             }`}
           >
             Category
@@ -78,7 +82,7 @@ const UserMenu = ({ close }) => {
             className={`px-3 py-2 rounded-md text-left transition ${
               isActive("/dashboard/subcategory")
                 ? "bg-green-100 font-medium"
-                : "bg-gray-100 hover:bg-gray-200"
+                : "bg-gray-50 hover:bg-gray-100"
             }`}
           >
             Sub Category
@@ -92,7 +96,7 @@ const UserMenu = ({ close }) => {
             className={`px-3 py-2 rounded-md text-left transition ${
               isActive("/dashboard/upload-product")
                 ? "bg-green-100 font-medium"
-                : "bg-gray-100 hover:bg-gray-200"
+                : "bg-gray-50 hover:bg-gray-100"
             }`}
           >
             Upload Product
@@ -106,7 +110,7 @@ const UserMenu = ({ close }) => {
             className={`px-3 py-2 rounded-md text-left transition ${
               isActive("/dashboard/product")
                 ? "bg-green-100 font-medium"
-                : "bg-gray-100 hover:bg-gray-200"
+                : "bg-gray-50 hover:bg-gray-100"
             }`}
           >
             Product
@@ -119,7 +123,7 @@ const UserMenu = ({ close }) => {
           className={`px-3 py-2 rounded-md text-left transition ${
             isActive("/dashboard/myorders")
               ? "bg-green-100 font-medium"
-              : "bg-gray-100 hover:bg-gray-200"
+              : "bg-gray-50 hover:bg-gray-100"
           }`}
         >
           My Orders
@@ -131,7 +135,7 @@ const UserMenu = ({ close }) => {
           className={`px-3 py-2 rounded-md text-left transition ${
             isActive("/dashboard/address")
               ? "bg-green-100 font-medium"
-              : "bg-gray-100 hover:bg-gray-200"
+              : "bg-gray-50 hover:bg-gray-100"
           }`}
         >
           Save Address
@@ -139,7 +143,7 @@ const UserMenu = ({ close }) => {
 
         <button
           onClick={handleLogout}
-          className="w-full px-3 py-2 bg-red-100 text-left rounded-md hover:bg-red-200 transition"
+          className="w-full px-3 py-2 text-left rounded-md hover:bg-red-200 transition"
         >
           Log Out
         </button>
