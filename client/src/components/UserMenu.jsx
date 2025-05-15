@@ -143,7 +143,7 @@ const UserMenu = ({ close }) => {
 
         <button
           onClick={handleLogout}
-          className="w-full px-3 py-2 text-left rounded-md hover:bg-red-200 transition"
+          className="w-full px-3 py-2 text-left bg-gray-50 rounded-md hover:bg-red-200 transition"
         >
           Log Out
         </button>
